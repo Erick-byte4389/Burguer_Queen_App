@@ -1,6 +1,6 @@
 import { ProductExtraBlock } from "./product-extra-block";
 
 export class ProductExtra {
-    label?: string;
-    blocks: ProductExtraBlock[]
+    label?: string; // label del bloque
+    blocks: ProductExtraBlock[];
 }

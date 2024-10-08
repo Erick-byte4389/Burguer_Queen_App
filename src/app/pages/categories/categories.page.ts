@@ -30,44 +30,50 @@ export class CategoriesPage {
     this.categories = [];
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.subscription = new Subscription();
     this.loadData();
   }
 
   async loadData() {
 
+    // Loading
     const loading = await this.loadingController.create({
       message: this.translate.instant('label.loading'),
     });
 
     await loading.present();
 
+    // Obtener categorias
     this.store.dispatch(new GetCategories());
     this.categories$.subscribe({
       next: () => {
+        // Obtenemos las categorias
         this.categories = this.store.selectSnapshot(CategoriesState.categories);
         console.log(this.categories);
-        loading.dismiss();
+        loading.dismiss(); // Ocultamos el loading
       }, error: (err) => {
         console.error(err);
-        loading.dismiss();
+        loading.dismiss(); // Ocultamos el loading
       }
     });
 
   }
 
-  goToProducts(category: Category){
+  goToProducts(category: Category) {
+    // guardamos el id de la categoria en navParams
     this.navParams.data['idCategory'] = category._id;
     this.navController.navigateForward('list-products')
   }
 
-  refreshCategories($event){
+  refreshCategories($event) {
+    // Refrescar categorias
     this.store.dispatch(new GetCategories());
+    // Indicamos que el refresher se ha completado
     $event.target.complete();
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.subscription.unsubscribe();
   }
 

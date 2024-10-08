@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {IonicModule} from "@ionic/angular";
-import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
-import {TranslateModule} from "@ngx-translate/core";
-import {UserOrderService} from "../../services/user-order.service";
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
+import { UserOrderService } from 'src/app/services/user-order.service';
+import { ExtrasSelectedPipe } from '../extras-selected/extras-selected.pipe';
 
 @Component({
   selector: 'app-list-products-order',
@@ -11,10 +12,7 @@ import {UserOrderService} from "../../services/user-order.service";
   styleUrls: ['./list-products-order.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    TranslateModule
+    IonicModule, CommonModule, FormsModule, TranslateModule, ExtrasSelectedPipe
   ]
 })
 export class ListProductsOrderComponent {

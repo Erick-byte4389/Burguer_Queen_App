@@ -32,9 +32,11 @@ export class ProductPage {
 
   ionViewWillEnter() {
 
+    // Obtenemos el producto pasado por navParams
     console.log(this.navParams.data['product']);
     this.product = this.navParams.data['product'];
 
+    // Si es un extra obtengo el total base
     if (this.product && this.product.extras) {
       this.total = this.product.price;
     }
@@ -46,31 +48,15 @@ export class ProductPage {
   }
 
   changeMultipleOption($event, options: ProductExtraOption[]) {
-
+    // Actualizamos el activate de las opciones
     options.forEach(op => op.activate = $event.detail.value == op.name);
-
+    // Actualizar el precio del producto
     this.calculateTotal();
   }
 
   calculateTotal() {
-
-    let total = this.product.price;
-
-    this.product.extras.forEach(extra => {
-      extra.blocks.forEach(block => {
-        if (block.options.length == 1 && block.options[0].activate) {
-          total += block.options[0].price;
-        } else if (block.options.length > 1) {
-          const option = block.options.find(op => op.activate);
-          if (option) {
-            total += option.price;
-          }
-        }
-      })
-    })
-
-    this.total = +total.toFixed(2);
-
+    // Actualizar el precio del producto
+    this.total = this.userOrderService.priceProduct(this.product);
   }
 
   getProduct($event) {
@@ -89,6 +75,7 @@ export class ProductPage {
 
   addProductOrder() {
 
+    // Añadimos el producto a la orden
     this.userOrderService.addProduct(this.product);
 
     console.log(this.userOrderService.getProducts());

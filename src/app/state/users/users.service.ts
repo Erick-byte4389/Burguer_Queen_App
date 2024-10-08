@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class UsersService {
 
   async getUser(email: string) {
+    // Obtenemos el token
     const token = await Preferences.get({ key: KEY_TOKEN });
     return CapacitorHttp.get({
       url: environment.urlApi + 'users',
@@ -19,7 +20,7 @@ export class UsersService {
       },
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token.value
+        'Authorization': 'Bearer ' + token.value // Authorization
       }
     }).then((response: HttpResponse) => {
       if (response.status == 200) {
